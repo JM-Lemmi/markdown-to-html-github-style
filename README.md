@@ -54,10 +54,10 @@ npm install
 ## Usage
 
 ```
-node convert.js MyPageTitle
+node convert.js PageTitle File.md File.html ./stlye.css
 ```
 
-This will read the `README.md` from your current working directory and output the resulting HTML as `README.html` in the same directory.
+`PageTitle` will be the html title. `File.md` from your current working directory will be converted and and output `File.html` in the same directory. `./style.css` will point to the css. If not submitted, will include the css inline.
 
 ## Open tasks
 
