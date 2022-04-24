@@ -3,7 +3,7 @@ var fs = require('fs');
 let filename = process.argv[3] || "Readme.md"
 let outname = process.argv[4] || "Readme.html"
 let pageTitle = process.argv[2] || ""
-let styleLink = process.argv[5] || ""
+let styleLink = process.argv[5] || "./style.css"
 
 
 fs.readFile(process.cwd() + '/' + filename, function (err, data) {
@@ -19,46 +19,23 @@ fs.readFile(process.cwd() + '/' + filename, function (err, data) {
     tables: true
   });
 
-  if (styleLink == "") {
-    fs.readFile(__dirname + '/style.css', function (err, styleData) {
-      let preContent = `
-      <html>
-        <head>
-          <title>` + pageTitle + `</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-        </head>
-        <body>
-          <div id='content'>
-      `
-      
+  let preContent = `
+  <html>
+    <head>
+      <title>` + pageTitle + `</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="` + styleLink + `">
+    </head>
+    <body>
+      <div id='content'>
+  `
+  
 
-      let postContent = `
+  let postContent = `
 
-          </div>
-          <style type='text/css'>` + styleData + `</style>
-        </body>
-      </html>`;
-    });
-  } else {
-    let preContent = `
-    <html>
-      <head>
-        <title>` + pageTitle + `</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="` + styleLink + `">
-      </head>
-      <body>
-        <div id='content'>
-    `
-    
-
-    let postContent = `
-
-        </div>
-      </body>
-    </html>`;
-  }
-
+      </div>
+    </body>
+  </html>`;
   html = preContent + converter.makeHtml(text) + postContent
 
   converter.setFlavor('github');
